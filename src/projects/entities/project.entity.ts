@@ -12,7 +12,7 @@ export class Project {
   id: number;
 
   @Column()
-  title: string;
+  name: string;
 
   @Column()
   description: string;

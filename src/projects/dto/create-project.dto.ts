@@ -2,7 +2,7 @@ import { IsNotEmpty, IsDateString } from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
-  title: string;
+  name: string;
 
   @IsNotEmpty()
   description: string;
