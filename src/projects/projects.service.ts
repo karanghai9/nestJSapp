@@ -30,12 +30,17 @@ export class ProjectsService {
     return this.projectsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async updateProject(id: number, updatedProject: Partial<Project>): Promise<Project | null> {
+    const project = await this.projectsRepository.findOne(id);
+    if (!project) {
+      return null;
+    }
+    await this.projectsRepository.update(id, updatedProject);
+    return this.projectsRepository.findOne(id);
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  findOne(id: number) {
+    return this.projectsRepository.findOne(id);
   }
 
   remove(id: number) {
