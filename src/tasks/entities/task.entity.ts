@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Project } from 'src/projects/entities/project.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Task {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   name: string;
@@ -12,5 +13,9 @@ export class Task {
   description: string;
 
   @Column()
-  createdDate: string;
+  createdDate: Date;
+
+  @ManyToOne(() => Project, project => project.tasks)
+  @JoinColumn({ name: 'project_id' })
+  project: Project;
 }

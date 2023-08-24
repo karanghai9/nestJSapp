@@ -3,13 +3,16 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 
-@Controller('tasks')
+@Controller('projects/:project_id/tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  async createTask(
+    @Param('project_id') project_id: number,
+    @Body() createTaskDto: CreateTaskDto
+  ) {
+    return this.tasksService.createTask(project_id, createTaskDto);
   }
 
   @Get()
