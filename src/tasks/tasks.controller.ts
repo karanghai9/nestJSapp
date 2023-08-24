@@ -15,19 +15,14 @@ export class TasksController {
     return this.tasksService.createTask(project_id, createTaskDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.tasksService.findAll();
-  // }
-
   @Get()
   getTasksInProject(@Param('project_id') projectId: string) {
     return this.tasksService.getTasksInProject(projectId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+  getOneTaskInProject(@Param('id') id: string) {
+    return this.tasksService.getOneTaskInProject(+id);
   }
 
   @Patch(':id')
@@ -36,7 +31,11 @@ export class TasksController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+  async deleteTask(@Param('id') id: number): Promise<string> {
+    const deleteResult = await this.tasksService.deleteTask(id);
+    if (deleteResult.affected === 0) {
+      return 'Task not found';
+    }
+    return 'Task deleted successfully';
   }
 }
