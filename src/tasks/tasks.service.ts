@@ -30,13 +30,14 @@ export class TasksService {
     return this.tasksRepository.findOne(id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async updateTask(id: number, updatedTask: Partial<Task>): Promise<Task | null> {
+    const project = await this.tasksRepository.findOne(id);
+    if (!project) {
+      return null;
+    }
+    await this.tasksRepository.update(id, updatedTask);
+    return this.tasksRepository.findOne(id);
   }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} task`;
-  // }
 
   async deleteTask(id: number): Promise<DeleteResult> {
     return this.tasksRepository.delete(id);
