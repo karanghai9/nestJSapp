@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -25,9 +25,16 @@ export class TasksController {
     return this.tasksService.getOneTaskInProject(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(+id, updateTaskDto);
+  @Put(':id')
+  async updateTask(
+    @Param('id') id: number,
+    @Body() updatedTask: UpdateTaskDto
+  ){
+    const project = await this.tasksService.updateTask(id, updatedTask);
+    if (!project) {
+      return 'Project not found';
+    }
+    return project;
   }
 
   @Delete(':id')
