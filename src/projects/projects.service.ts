@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project } from '../projects/entities/project.entity';
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -43,7 +43,7 @@ export class ProjectsService {
     return this.projectsRepository.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async deleteProject(id: number): Promise<DeleteResult> {
+    return this.projectsRepository.delete(id);
   }
 }
