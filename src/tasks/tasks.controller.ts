@@ -15,9 +15,14 @@ export class TasksController {
     return this.tasksService.createTask(project_id, createTaskDto);
   }
 
+  // @Get()
+  // findAll() {
+  //   return this.tasksService.findAll();
+  // }
+
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  getTasksInProject(@Param('project_id') projectId: string) {
+    return this.tasksService.getTasksInProject(projectId);
   }
 
   @Get(':id')

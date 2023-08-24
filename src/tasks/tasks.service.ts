@@ -20,12 +20,10 @@ export class TasksService {
     return this.tasksRepository.save(task);
   }
 
-  create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
-  }
-
-  findAll() {
-    return `This action returns all tasks`;
+  async getTasksInProject(projectId: string): Promise<Task[]> {
+    return this.tasksRepository.find({
+      where: { project: { id: projectId } }
+    });
   }
 
   findOne(id: number) {
