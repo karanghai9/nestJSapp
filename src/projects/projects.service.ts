@@ -18,7 +18,7 @@ export class ProjectsService {
   ): Promise<Project> {
     return await this.projectsRepository.save(
       new Project({...input, 
-        title: input.title,
+        name: input.name,
         description: input.description,
         startDate: input.startDate,
         endDate: input.endDate,
