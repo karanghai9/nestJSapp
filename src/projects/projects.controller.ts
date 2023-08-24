@@ -38,7 +38,11 @@ export class ProjectsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.projectsService.remove(+id);
+  async deleteProject(@Param('id') id: number): Promise<string> {
+    const deleteResult = await this.projectsService.deleteProject(id);
+    if (deleteResult.affected === 0) {
+      return 'Project not found';
+    }
+    return 'Project deleted successfully';
   }
 }
